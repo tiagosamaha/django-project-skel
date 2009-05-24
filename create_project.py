@@ -10,9 +10,11 @@ BLACKLIST = (
     'admin/css',
     'admin/img',
     'admin/js',
+    '/.git/'
 )
 
 def replace(repl, text):
+    text = text.replace('/gitignore', '/.gitignore')
     for key, value in repl.iteritems():
         text = text.replace('$$$$%s$$$$' % (key,), value)
     return text
