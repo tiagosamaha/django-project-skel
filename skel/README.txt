@@ -52,4 +52,4 @@ WHAT YOU SHOULD DO EVERY DAY
 
 3. Start your local development server:
 
-    python manage.py runserver 0.0.0.0:8000$$$$PROJECT_NAME$$$$
+    python manage.py runserver 0.0.0.0:8000
