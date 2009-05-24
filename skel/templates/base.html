@@ -1,0 +1,17 @@
+{% load compressed %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		{% compressed_css 'screen' %}
+		{% compressed_js 'all' %}
+		{% block extra_head %}{% endblock %}
+	</head>
+	<body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
+	    <div id="container">
+	        {% block content %}
+	        {% endblock %}
+	    </div>
+	    {% block extra_body %}{% endblock %}
+	</body>
+</html>
