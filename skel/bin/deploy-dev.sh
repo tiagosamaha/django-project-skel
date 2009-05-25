@@ -2,8 +2,9 @@
 
 ssh -t $$$$PROJECT_NAME$$$$@$$$$DEV_APP_HOST$$$$ "\
 cd /home/$$$$PROJECT_NAME$$$$/$$$$PROJECT_NAME$$$$/;\
-git pull; sudo /etc/init.d/memcached stop;\
-sudo /etc/init.d/memcached start;\
-sleep 2;\
+git pull;
 sudo /etc/init.d/apache2 reload;\
+source /home/$$$$PROJECT_NAME$$$$/virtualenvs/$$$$PROJECT_NAME$$$$/bin/activate;\
+export FLAVOR=dev;\
+python manage.py flush_all_memcached;\
 "

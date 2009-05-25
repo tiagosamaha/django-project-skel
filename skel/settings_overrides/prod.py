@@ -9,3 +9,5 @@ DATABASE_PORT = ''
 
 MEDIA_URL = 'http://media-$$$$PROD_APP_HOST$$$$/'
 ADMIN_MEDIA_PREFIX = 'http://media-$$$$PROD_APP_HOST$$$$/admin/'
+
+CACHE_BACKEND = 'memcached://127.0.0.1:11211/'

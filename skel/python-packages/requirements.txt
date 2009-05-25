@@ -3,3 +3,5 @@ python-packages/django-pagination-1.0.5.tar.gz
 python-packages/django-compress-1.0.1.tar.gz
 python-packages/south-0.5.tar.gz
 python-packages/simplejson-2.0.9.tar.gz
+python-packages/python-memcached-1.44.tar.gz
+python-packages/django-memcached-0.1.2.tar.gz

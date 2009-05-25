@@ -91,10 +91,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'django_ext',
+    'django_memcached',
     'pagination',
     'compress',
     'south',
-    'django_ext',
 )
 
 COMPRESS = True
@@ -117,6 +118,10 @@ COMPRESS_JS = {
 }
 
 SOUTH_AUTO_FREEZE_APP = True
+
+DJANGO_MEMCACHED_REQUIRE_STAFF = True
+
+CACHE_BACKEND = 'locmem:///'
 
 def override_settings(dottedpath):
     try:
