@@ -14,7 +14,7 @@ GETTING SET UP FOR THE FIRST TIME
 
 3. Install the "pip" Python package manager in the new virtual environment:
 
-    easy_install python-packages/pip-0.3.1.tar.gz
+    easy_install python-packages/pip-0.4.tar.gz
 
 
 4. Upgrade to the latest version of the packages:
