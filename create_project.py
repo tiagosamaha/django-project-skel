@@ -67,6 +67,7 @@ def main():
             if should_replace:
                 data = replace(repl, data)
             open(dest_fn, 'w').write(data)
+            os.chmod(dest_fn, os.stat(source_fn)[0])
 
 if __name__ == '__main__':
     main()
