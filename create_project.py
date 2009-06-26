@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-import os
-import random
+import os, random, subprocess
 
 CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
 BLACKLIST = (
@@ -24,26 +23,15 @@ def main():
     pn = raw_input('Project name: ')
     repl['PROJECT_NAME'] = pn
     
-    repl['DEV_DATABASE_HOST'] = raw_input('Development Database host (e.g. dev.%s.com): ' % (pn,))
-    if not repl['DEV_DATABASE_HOST']:
-        repl['DEV_DATABASE_HOST'] = 'dev.%s.com' % (pn,)
-    
-    repl['PROD_DATABASE_HOST'] = raw_input('Production Database host (e.g. db.%s.com): ' % (pn,))
-    if not repl['PROD_DATABASE_HOST']:
-        repl['PROD_DATABASE_HOST'] = 'db.%s.com' % (pn,)
-    
     repl['DEV_APP_HOST'] = raw_input('Development app host (e.g. dev.%s.com): ' % (pn,))
     if not repl['DEV_APP_HOST']:
         repl['DEV_APP_HOST'] = 'dev.%s.com' % (pn,)
     
-    repl['PROD_APP_HOST'] = raw_input('Production app host (e.g. %s.com): ' % (pn,))
-    if not repl['PROD_APP_HOST']:
-        repl['PROD_APP_HOST'] = '%s.com' % (pn,)
+    # repl['NAME'] = raw_input('Your name: ')
+    # repl['EMAIL_ADDRESS'] = raw_input('Email address: ')
+    repl['NAME'] = 'Webmaster'
+    repl['EMAIL_ADDRESS'] = 'webmaster@washingtontimes.com'
     
-    repl['AWS_ACCESS_KEY_ID'] = raw_input('AWS access key id: ')
-    repl['AWS_SECRET_ACCESS_KEY'] = raw_input('AWS secret access key: ')
-    repl['NAME'] = raw_input('Your name: ')
-    repl['EMAIL_ADDRESS'] = raw_input('Email address: ')
     repl['SECRET_KEY'] = ''.join([random.choice(CHARS) for i in xrange(50)])
     
     dest_dir = raw_input('Destination directory (currently at %s): ' % (os.getcwd(),))
@@ -68,6 +56,16 @@ def main():
                 data = replace(repl, data)
             open(dest_fn, 'w').write(data)
             os.chmod(dest_fn, os.stat(source_fn)[0])
+    repl['virtenv'] = raw_input('Virtual environment name (e.g. %s-env): ' % pn)
+    if not repl['virtenv']:
+        repl['virtenv'] = '%s-env' % pn
+    
+    print "Bootstrapping the virtual envirionment..."
+    subprocess.call(['%s/setup/_bootstrap.sh' % dest,], shell=True)
+    print "Making the virtual environment (%s)..." % repl['virtenv']
+    subprocess.call(['source /usr/local/bin/virtualenvwrapper_bashrc;cd %s;mkvirtualenv --no-site-packages %s;easy_install pip' % (dest, repl['virtenv']), ], env=os.environ, executable='/bin/bash', shell=True)
+    print "Now type: workon %s;cd %s;bin/update.sh" % (repl['virtenv'], dest)
+
 
 if __name__ == '__main__':
     main()

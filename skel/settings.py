@@ -24,13 +24,14 @@ DATABASE_PORT = ''             # Set to empty string for default. Not used with 
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/New_York'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
+APPEND_SLASH = True
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -57,7 +58,6 @@ SECRET_KEY = '$$$$SECRET_KEY$$$$'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -69,11 +69,19 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.http.SetRemoteAddrFromForwardedFor',
+    'django.middleware.gzip.GZipMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
+    'django.middleware.doc.XViewMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
     'pagination.middleware.PaginationMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -91,31 +99,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.flatpages',
+    'django.contrib.humanize',
+    'django.contrib.redirects',
     'django_ext',
     'django_memcached',
     'pagination',
-    'compress',
     'south',
+    'django_extensions',
 )
-
-COMPRESS = True
-COMPRESS_VERSION = True
-COMPRESS_CSS_FILTERS = []
-COMPRESS_CSS = {
-    'screen': {
-        'source_filenames': ('css/screen.css',),
-        'output_filename': 'css/screen.r?.css',
-        'extra_context': {
-            'media': 'screen,projection',
-        },
-    },
-}
-COMPRESS_JS = {
-    'all': {
-        'source_filenames': ('js/jquery-1.3.2.js', 'js/global.js'),
-        'output_filename': 'js/all.r?.js',
-    }
-}
 
 SOUTH_AUTO_FREEZE_APP = True
 
@@ -123,18 +115,7 @@ DJANGO_MEMCACHED_REQUIRE_STAFF = True
 
 CACHE_BACKEND = 'locmem:///'
 
-def override_settings(dottedpath):
-    try:
-        _m = __import__(dottedpath, fromlist=[None])
-    except ImportError:
-        pass
-    else:
-        _thismodule = sys.modules[__name__]
-        for _k in dir(_m):
-            if _k[:1].isupper():
-                setattr(_thismodule, _k, getattr(_m, _k))
-
-FLAVOR = os.environ.get('FLAVOR')
-if FLAVOR:
-    override_settings('settings_overrides.' + FLAVOR)
-override_settings('local_settings')
+try:
+    from local_settings import *
+except ImportError:
+    pass
