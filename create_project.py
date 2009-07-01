@@ -64,7 +64,7 @@ def main():
     subprocess.call(['%s/setup/_bootstrap.sh' % dest,], shell=True)
     print "Making the virtual environment (%s)..." % repl['virtenv']
     subprocess.call(['source /usr/local/bin/virtualenvwrapper_bashrc;cd %s;mkvirtualenv --no-site-packages %s;easy_install pip' % (dest, repl['virtenv']), ], env=os.environ, executable='/bin/bash', shell=True)
-    print "Now type: workon %s;cd %s;bin/update.sh" % (repl['virtenv'], dest)
+    print "Now type: workon %s;cd %s;bin/upgrade.sh" % (repl['virtenv'], dest)
 
 
 if __name__ == '__main__':
