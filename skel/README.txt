@@ -3,24 +3,27 @@ GETTING SET UP FOR THE FIRST TIME
 
 1. Bootstrap your environment. This only needs to be done once:
 
-    ./python-packages/_bootstrap.sh
+    ./setup/_bootstrap.sh
 
 
-2. Create a virtual environment (it doesn't need to be named $$$$PROJECT_NAME$$$$-env,
+2. Create a virtual environment (it doesn't need to be named $$$$PROJECT_NAME$$$$,
    but name it something you'll remember):
 
-    mkvirtualenv $$$$PROJECT_NAME$$$$-env
+    mkvirtualenv $$$$PROJECT_NAME$$$$
 
 
 3. Install the "pip" Python package manager in the new virtual environment:
 
-    easy_install python-packages/pip-0.4.tar.gz
+    easy_install pip
 
 
 4. Upgrade to the latest version of the packages:
 
     ./bin/upgrade.sh
 
+5. Link the source directory into the project folder for easier access
+
+    ln -s ~/.virtualenvs/$$$$PROJECT_NAME$$$$/src/ externals
 
 
 WHAT YOU SHOULD DO PERIODICALLY
@@ -28,7 +31,7 @@ WHAT YOU SHOULD DO PERIODICALLY
 
 1. Switch to the correct virtual environment:
 
-    workon $$$$PROJECT_NAME$$$$-env
+    workon $$$$PROJECT_NAME$$$$
 
 
 2. Upgrade to the latest version of the packages:
@@ -47,7 +50,7 @@ WHAT YOU SHOULD DO EVERY DAY
 
 2. Switch to the correct virtual environment:
 
-    workon $$$$PROJECT_NAME$$$$-env
+    workon $$$$PROJECT_NAME$$$$
 
 
 3. Start your local development server:
