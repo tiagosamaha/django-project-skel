@@ -8,7 +8,7 @@ server {
     location     / {
         autoindex on;
         index     index.html;
-        root      /home/$$$$PROJECT_NAME$$$$/$$$$PROJECT_NAME$$$$/media;
+        root      /var/code/$$$$PROJECT_NAME$$$$/media;
         expires   max;
     }
 }
@@ -18,6 +18,6 @@ server {
     access_log   /var/log/nginx/$$$$DEV_APP_HOST$$$$.access.log;
     location     / {
         proxy_pass  http://webcluster;
-        include     /home/$$$$PROJECT_NAME$$$$/$$$$PROJECT_NAME$$$$/conf/proxy.conf;
+        include     /var/code/$$$$PROJECT_NAME$$$$/conf/proxy.conf;
     }
 }
