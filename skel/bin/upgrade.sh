@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-pip install -U -r setup/requirements.txt
-rm -Rf src
-rm -Rf build
-rm -Rf pip-log.txt
+git pull origin master
+bin/pull-ext.sh
