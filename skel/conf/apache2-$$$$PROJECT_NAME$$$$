@@ -1,4 +1,4 @@
-<VirtualHost *:8080>
+<VirtualHost *:80>
         ServerAdmin $$$$EMAIL_ADDRESS$$$$
         ServerName $$$$DEV_APP_HOST$$$$
         ServerAlias media-$$$$DEV_APP_HOST$$$$

@@ -23,9 +23,9 @@ def main():
     pn = raw_input('Project name: ')
     repl['PROJECT_NAME'] = pn
     
-    repl['DEV_APP_HOST'] = raw_input('Development app host (e.g. dev.%s.com): ' % (pn,))
-    if not repl['DEV_APP_HOST']:
-        repl['DEV_APP_HOST'] = 'dev.%s.com' % (pn,)
+    # repl['DEV_APP_HOST'] = raw_input('Development app host (e.g. dev.%s.com): ' % (pn,))
+    # if not repl['DEV_APP_HOST']:
+    #     repl['DEV_APP_HOST'] = 'dev.%s.com' % (pn,)
     
     # repl['NAME'] = raw_input('Your name: ')
     # repl['EMAIL_ADDRESS'] = raw_input('Email address: ')
