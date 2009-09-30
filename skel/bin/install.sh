@@ -12,7 +12,7 @@ if [ -e externals ]; then
     echo 'Externals link exists.'
 else
     echo 'Creating link: externals.'
-    ln -s $WORKON_HOME/omg/src externals
+    ln -s $VIRTUAL_ENV/src externals
 fi
 
 if [ -e $POSTACTIVATE ]; then
