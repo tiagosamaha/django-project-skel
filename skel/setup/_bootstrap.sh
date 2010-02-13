@@ -7,26 +7,25 @@ then
     sudo python /tmp/ez_setup.py -U setuptools
 fi
 
-if [[ "`which workon`" == ""]]
-then
-    echo "Using sudo to install virtualenv and virtualenvwrapper (workon)"
-    sudo easy_install virtualenv
-    sudo easy_install virtualenvwrapper
+[[ "`which workon`" != ""]] && exit 0
 
-    PYTHON_BASE=$(dirname `which python`)
+echo "Using sudo to install virtualenv and virtualenvwrapper (workon)"
+sudo easy_install virtualenv
+sudo easy_install virtualenvwrapper
 
-    touch ~/.profile
-    mkdir ~/.virtualenvs
+PYTHON_BASE=$(dirname `which python`)
 
-    if [ ! "$(grep WORKON_HOME ~/.profile)"  ]
-        then echo "
-    export WORKON_HOME=\$HOME/.virtualenvs
-    source /usr/local/bin/virtualenvwrapper_bashrc
-    " >> ~/.profile
-    fi
+touch ~/.profile
+mkdir ~/.virtualenvs
 
-    source ~/.profile
-
-    echo "Insatlled."
-    echo "Your new WORKON_HOME is ~/.virtualenvs"
+if [ ! "$(grep WORKON_HOME ~/.profile)"  ]
+    then echo "
+export WORKON_HOME=\$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper_bashrc
+" >> ~/.profile
 fi
+
+source ~/.profile
+
+echo "Insatlled."
+echo "Your new WORKON_HOME is ~/.virtualenvs"

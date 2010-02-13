@@ -29,8 +29,8 @@ def main():
     
     # repl['NAME'] = raw_input('Your name: ')
     # repl['EMAIL_ADDRESS'] = raw_input('Email address: ')
-    repl['NAME'] = 'Webmaster'
-    repl['EMAIL_ADDRESS'] = 'webmaster@washingtontimes.com'
+    repl['NAME'] = 'David Wolever'
+    repl['EMAIL_ADDRESS'] = 'david@wolever.net'
     
     repl['SECRET_KEY'] = ''.join([random.choice(CHARS) for i in xrange(50)])
     
@@ -38,10 +38,14 @@ def main():
     dest = os.path.join(dest_dir, repl['PROJECT_NAME'])
     os.makedirs(dest)
     
-    for root, dirs, files in os.walk('./skel/'):
+    skeldir = os.path.join(os.path.dirname(__file__), 'skel')
+    for root, dirs, files in os.walk(skeldir):
         for filename in files:
             source_fn = os.path.join(root, filename)
-            dest_fn = replace(repl, os.path.join(dest, root.replace('./skel/', ''), replace(repl, filename)))
+            source_rel_fn = root.replace(skeldir, '')
+            source_rel_fn = source_rel_fn.lstrip("/")
+            dest_rel_fn = os.path.join(source_rel_fn, replace(repl, filename))
+            dest_fn = replace(repl, os.path.join(dest, dest_rel_fn))
             try:
                 os.makedirs(os.path.dirname(dest_fn))
             except OSError:
