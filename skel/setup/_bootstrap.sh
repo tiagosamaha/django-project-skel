@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+IFS="`printf "\n\t"`"
+cd "`dirname "$0"`"
+
 if [[ "`which easy_install`" == "" ]]
 then
     echo "Using sudo to intsall easy_install..."
@@ -7,7 +10,7 @@ then
     sudo python /tmp/ez_setup.py -U setuptools
 fi
 
-[[ "`which workon`" != ""]] && exit 0
+[[ "`which virtualenv`" != "" ]] && exit
 
 echo "Using sudo to install virtualenv and virtualenvwrapper (workon)"
 sudo easy_install virtualenv
@@ -27,5 +30,7 @@ fi
 
 source ~/.profile
 
-echo "Insatlled."
+cp ./postactive ./postdeactivate $WORKON_HOME/
+
+echo "Installed."
 echo "Your new WORKON_HOME is ~/.virtualenvs"
