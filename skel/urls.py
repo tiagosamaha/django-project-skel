@@ -5,12 +5,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^cache/', include('django_memcached.urls')),
-    (r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        { 'document_root': settings.MEDIA_ROOT,
+          'show_indexes': True}, name='media'),
 )
 
-if settings.DEBUG:
-    urlpatterns += patterns('django.views.static',
-        (r'^media/(?P<path>.*)$', 'serve',
-            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-    )
