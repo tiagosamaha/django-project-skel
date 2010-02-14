@@ -26,7 +26,7 @@ pip install -U -r setup/requirements.txt
 
 
 # Finally, create a link in $WORKON_HOME to this virtualenv
-if [[ "$WORKON_HOME" == "" ]]
+if [[ "$WORKON_HOME" != "" ]]
 then
     ln -s "`pwd`/env/$PROJ_NAME" "$WORKON_HOME/$PROJ_NAME" || true
     echo "Ready - run 'workon $PROJ_NAME' to start working."

@@ -61,5 +61,8 @@ def main():
             open(dest_fn, 'w').write(data)
             os.chmod(dest_fn, os.stat(source_fn)[0])
 
+    print "Done!"
+    print "Run %s/setup/setup.sh to setup the environment." %(dest)
+
 if __name__ == '__main__':
     main()

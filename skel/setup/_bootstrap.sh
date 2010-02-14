@@ -10,7 +10,7 @@ then
     sudo python /tmp/ez_setup.py -U setuptools
 fi
 
-[[ "`which workon`" != "" ]] && exit
+[[ "`which virtualenv`" != "" ]] && exit
 echo "Using sudo to install virtualenv and virtualenvwrapper (workon)"
 sudo easy_install virtualenv
 sudo easy_install virtualenvwrapper
@@ -29,7 +29,15 @@ fi
 
 source ~/.profile
 
-cp ./postactive ./postdeactivate $WORKON_HOME/
+if [[ -f "$WORKON_HOME/postactive" ]]
+then
+    echo "Postactivate script already exists - not copying."
+    echo "If you'd like, you can copy this in to $WORKON_HOME/postactive"
+    echo "by hand:"
+    cat ./postactive
+else
+    cp ./postactive $WORKON_HOME/
+fi
 
 echo "Installed."
 echo "Your new WORKON_HOME is ~/.virtualenvs"
