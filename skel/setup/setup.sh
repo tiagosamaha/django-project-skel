@@ -16,14 +16,13 @@ PROJ_NAME="`basename "$PROJ_PATH"`"
 virtualenv --no-site-packages "./env/$PROJ_NAME"
 
 # Start the virtual env
+OLD_PWD="`pwd`"
 source "env/$PROJ_NAME/bin/activate"
-# (activating the virtualenv may have changed our working directory)
-cd "`dirname "$0"`/.."
+cd "$OLD_PWD"
 
 # Install pip then update the requirements
 easy_install pip
 pip install -U -r setup/requirements.txt
-
 
 # Finally, create a link in $WORKON_HOME to this virtualenv
 if [[ "$WORKON_HOME" != "" ]]

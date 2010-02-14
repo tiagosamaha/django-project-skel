@@ -1,7 +1,7 @@
 #!/bin/bash
 
 IFS="`printf "\n\t"`"
-set -eu
+set -e
 cd "`dirname "$0"`/.."
 
 echo $PWD
@@ -9,6 +9,22 @@ if [[ ! -e "settings.py" ]]
 then
     echo "No settings.py found - creating link to settings/dev_settings.py"
     ln -s settings/dev_settings.py settings.py
+fi
+
+RESET="no"
+
+if [[ "$1" == "reset" ]]
+then
+    shift
+    RESET="yes"
+fi
+
+[[ ! -e "db.sqlite3" ]] && RESET="yes"
+
+if [[ "$RESET" == "yes" ]]
+then
+    rm db.sqlite3 || true 2>&1>/dev/null
+    ./manage.py syncdb --noinput
 fi
 
 ./manage.py runserver_plus
