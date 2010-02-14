@@ -4,7 +4,6 @@ IFS="`printf "\n\t"`"
 set -e
 cd "`dirname "$0"`/.."
 
-echo $PWD
 if [[ ! -e "settings.py" ]]
 then
     echo "No settings.py found - creating link to settings/dev_settings.py"

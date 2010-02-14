@@ -15,9 +15,13 @@ PROJ_NAME="`basename "$PROJ_PATH"`"
 [[ ! -d "env/" ]] && mkdir env
 virtualenv --no-site-packages "./env/$PROJ_NAME"
 
+# Add our own 'bin' directory to the virtualenv's $PATH
+ACTIVATE="env/$PROJ_NAME/bin/activate"
+echo 'PATH="$VIRTUAL_ENV/../../bin/:$PATH"' >> "$ACTIVATE"
+
 # Start the virtual env
 OLD_PWD="`pwd`"
-source "env/$PROJ_NAME/bin/activate"
+source "$ACTIVATE"
 cd "$OLD_PWD"
 
 # Install pip then update the requirements
