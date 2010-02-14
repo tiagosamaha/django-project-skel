@@ -25,6 +25,10 @@ if [[ "$RESET" == "yes" ]]
 then
     rm db.sqlite3 || true 2>&1>/dev/null
     ./manage.py syncdb --noinput
+    IMP="from django.contrib.auth.models import User"
+    CREATE="User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
+    echo "$IMP; $CREATE" | ./manage.py shell
+    echo "Created user 'admin' with password 'admin'"
 fi
 
 ./manage.py runserver_plus
