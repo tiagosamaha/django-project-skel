@@ -1,4 +1,0 @@
-#!/bin/sh
-# This hook is run after every virtualenv is deactivated.
-
-[[ "$_VIRTUAL_ENV_OLD_PWD" != "" ]] && cd "$_VIRTUAL_ENV_OLD_PWD"

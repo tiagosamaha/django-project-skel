@@ -11,9 +11,26 @@ cd ..
 PROJ_PATH="`pwd`"
 PROJ_NAME="`basename "$PROJ_PATH"`"
 
+# Create a virtualenv at env/$PROJ_NAME
 [[ ! -d "env/" ]] && mkdir env
-virtualenv --no-site-packages env/$PROJ_NAME
+virtualenv --no-site-packages "./env/$PROJ_NAME"
 
-[[ "$WORKON_HOME" == "" ]] && exit
+# Start the virtual env
+source "env/$PROJ_NAME/bin/activate"
+# (activating the virtualenv may have changed our working directory)
+cd "`dirname "$0"`/.."
 
-ln -s "`pwd`/env/$PROJ_NAME" "$WORKON_HOME/$PROJ_NAME"
+# Install pip then update the requirements
+easy_install pip
+pip install -U -r setup/requirements.txt
+
+
+# Finally, create a link in $WORKON_HOME to this virtualenv
+if [[ "$WORKON_HOME" == "" ]]
+then
+    ln -s "`pwd`/env/$PROJ_NAME" "$WORKON_HOME/$PROJ_NAME" || true
+    echo "Ready - run 'workon $PROJ_NAME' to start working."
+else
+    echo "Ready - run '. env/$PROJ_NAME/bin/activate' to start working."
+fi
+

@@ -10,8 +10,7 @@ then
     sudo python /tmp/ez_setup.py -U setuptools
 fi
 
-[[ "`which virtualenv`" != "" ]] && exit
-
+[[ "`which workon`" != "" ]] && exit
 echo "Using sudo to install virtualenv and virtualenvwrapper (workon)"
 sudo easy_install virtualenv
 sudo easy_install virtualenvwrapper
